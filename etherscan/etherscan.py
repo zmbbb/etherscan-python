@@ -8,8 +8,13 @@ from etherscan import configs
 from etherscan.enums.fields_enum import FieldsEnum as fields
 from etherscan.utils.parsing import ResponseParser as parser
 
+from etherscan.utils.shelve import Shelve as shelve
+
 
 class Etherscan:
+    # Enable/disable caching of all requests
+    CACHING = True
+    
     def __new__(cls, api_key: str, net: str = "MAIN"):
         with resources.path(configs, f"{net.upper()}-stable.json") as path:
             config_path = str(path)
@@ -29,7 +34,14 @@ class Etherscan:
                 f"{fields.API_KEY}"
                 f"{api_key}"
             )
+
+            r = shelve.shelve_load(url)
+            if r and Etherscan.CACHING:
+                return parser.parse(r)
+
             r = requests.get(url, headers={"User-Agent": ""})
+            shelve.shelve_store(url, r)
+
             return parser.parse(r)
 
         return wrapper
