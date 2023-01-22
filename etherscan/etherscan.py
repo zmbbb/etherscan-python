@@ -1,4 +1,5 @@
 import json
+from datetime import date
 from importlib import resources
 
 import requests
@@ -12,7 +13,7 @@ from etherscan.utils.shelve import Shelve as shelve
 
 
 class Etherscan:
-    # Enable/disable caching of all requests
+    # Enable/disable caching of all requests (will still pull data once a day)
     CACHING = True
     
     def __new__(cls, api_key: str, net: str = "MAIN"):
@@ -34,13 +35,14 @@ class Etherscan:
                 f"{fields.API_KEY}"
                 f"{api_key}"
             )
+            today = date.today()
 
-            r = shelve.shelve_load(url)
+            r = shelve.shelve_load(f"{today}|{url}")
             if r and Etherscan.CACHING:
                 return parser.parse(r)
 
             r = requests.get(url, headers={"User-Agent": ""})
-            shelve.shelve_store(url, r)
+            shelve.shelve_store(f"{today}|{url}", r)
 
             return parser.parse(r)
 
