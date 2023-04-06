@@ -293,6 +293,15 @@
       "sort": "asc"
     }
   },
+  "get_erc1155_token_transfer_events_by_address": {
+    "module": "accounts",
+    "kwargs": {
+      "address": "0x6975be450864c02b4613023c2152ee0743572325",
+      "startblock": 0,
+      "endblock": 999999999,
+      "sort": "asc"
+    }
+  },
   "get_mined_blocks_by_address": {
     "module": "accounts",
     "kwargs": {
