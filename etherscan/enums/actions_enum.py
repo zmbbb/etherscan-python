@@ -58,6 +58,7 @@ class ActionsEnum:
     TOKEN_SUPPLY_HISTORY: str = "tokensupplyhistory"
     TOKEN_SUPPLY: str = "tokensupply"
     TOKENNFTTX: str = "tokennfttx"
+    TOKEN1155TX: str = "token1155tx"
     TOKENTX: str = "tokentx"
     TXLIST_INTERNAL: str = "txlistinternal"
     TXLIST: str = "txlist"

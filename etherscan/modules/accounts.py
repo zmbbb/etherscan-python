@@ -295,6 +295,32 @@ class Accounts:
         )
         return url
 
+
+# Added by zmbbb: ERC 1155
+#
+# https://api.etherscan.io/api?module=account&action=token1155tx&address=0x057C2d080D30306EC2bf7Ae15232FbE96627B066&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken
+
+    @staticmethod
+    def get_erc1155_token_transfer_events_by_address(
+        address: str, startblock: int, endblock: int, sort: str,
+    ) -> str:
+        url = (
+            f"{fields.MODULE}"
+            f"{modules.ACCOUNT}"
+            f"{fields.ACTION}"
+            f"{actions.TOKEN1155TX}"
+            f"{fields.ADDRESS}"
+            f"{address}"
+            f"{fields.START_BLOCK}"
+            f"{str(startblock)}"
+            f"{fields.END_BLOCK}"
+            f"{str(endblock)}"
+            f"{fields.SORT}"
+            f"{sort}"
+        )
+        return url
+
+
     @staticmethod
     def get_mined_blocks_by_address(address: str) -> str:
         url = (
